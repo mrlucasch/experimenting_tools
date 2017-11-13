@@ -6,6 +6,12 @@
 
 This takes in a series of comma separated pairs and prints out a nice table, that looks like the following:
 
+### Prereq:
+We use prettytable to render tables. To install, run the following
+
+```
+pip install prettytable
+```
 
 
 Input (test_config):
