@@ -1,12 +1,13 @@
 import pandas as pd
 import json
+import uuid
 
 
 
 def help():
     print("Available Functions:")
     print("read_data(fname,dropnan=False)")
-    print("jsonify(graph_location,name,description,config,data,tags)")
+    print("jsonify(graph_location,name,description,config,data,tags,loc=\"\")")
     print("readJSON(fname)")
 
 
@@ -20,7 +21,7 @@ def read_data(fname,dropnan=False):
 
 
 
-def jsonify(graph_location,name,description,config,data,tags):
+def jsonify(graph_location,name,description,config,data,tags,loc=""):
     job = {}
     job["graph"] = name
     job["location"] = graph_location
@@ -28,11 +29,13 @@ def jsonify(graph_location,name,description,config,data,tags):
     job["config"] = config
     job["dataset"] = data
     job["tags"] = tags
-    
-    with open(name+".json", 'w') as f:
+    uid = str(uuid.uuid4())[:8]
+    fname = loc+name+"_"+str(uid)+".json"
+    with open(fname, 'w') as f:
         json.dump(job, f)
+    print("Saved as: "+fname)
 
 def readJSON(fname):
-    with open(filename, 'r') as f:
+    with open(fname, 'r') as f:
         datastore = json.load(f)
     return datastore
